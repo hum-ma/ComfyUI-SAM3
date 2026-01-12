@@ -71,7 +71,9 @@ class Sam3VideoPredictor:
             .eval()
         )
         if dtype == torch.float16:
-            self.model = self.model.half()
+            self.model.half()
+        elif dtype == torch.bfloat16:
+            self.model.bfloat16()
 
     @torch.inference_mode()
     def handle_request(self, request):
