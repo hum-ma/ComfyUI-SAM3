@@ -895,7 +895,6 @@ class TransformerDecoderLayerv2(TransformerDecoderLayerv1):
 
     def _forward_sa(self, tgt, query_pos):
         if self.self_attn.freqs_cis.device != tgt.device:
-            print(f"self_attn to gpu")
             self.self_attn.freqs_cis = self.self_attn.freqs_cis.to(device=tgt.device)
         # Self-Attention
         tgt2 = self.norm1(tgt)
@@ -909,7 +908,6 @@ class TransformerDecoderLayerv2(TransformerDecoderLayerv1):
             return tgt
 
         if self.cross_attn_image.freqs_cis.device != tgt.device:
-            print(f"cross_attn_image to gpu")
             self.cross_attn_image.freqs_cis = self.cross_attn_image.freqs_cis.to(device=tgt.device)
         kwds = {}
         if num_k_exclude_rope > 0:
